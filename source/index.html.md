@@ -2,10 +2,10 @@
 title: API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
-  - shell
-  - ruby
-  - python
   - javascript
+  - python
+  - cpp
+  - go
 
 toc_footers:
   - <a href='#'>Sign Up for a Developer Key</a>
@@ -19,80 +19,56 @@ search: true
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Welcome to the lkire.com demos API! You can use this API to embed interactive and live-data demos in your own site. Additionally, some of the demos provide API endpoints of their own, which are documented here. You will find language bindings in JavaScript, Python, C++, and go! 
 
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
-This example API documentation page was created with [Slate](https://github.com/lord/slate). Feel free to edit it and use it as a base for your own API's documentation.
+# Authorization
 
-# Authentication
+> To obtain access to protected demos, please fill out the request form on the Contact page. If you would like to embed protected resources or access protected APIs please indicate so on the request form.
 
-> To authorize, use this code:
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
 
 ```python
-import kittn
+import lkire-api
 
-api = kittn.authorize('meowmeowmeow')
-```
-
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
+api = lkire-api.authorize('youraccesstocken')
 ```
 
 ```javascript
-const kittn = require('kittn');
+const lkire-api = require('lkire-api');
 
-let api = kittn.authorize('meowmeowmeow');
+let api = lkire-api.authorize('youraccesstoken');
 ```
 
-> Make sure to replace `meowmeowmeow` with your API key.
+> Make sure to replace `youraccesstoken` with your API key.
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+lkire.com uses API keys to allow access to restricted APIs. You can register a new lkire.com API key at the [Contact Page](http://lkire.com/contact).
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+lkire.com expects for the API key to be included in all restricted API requests to the server in a header that looks like the following:
 
-`Authorization: meowmeowmeow`
+`Authorization: youraccesstoken`
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+You must replace <code>youraccesstoken</code> with your personal API key.
 </aside>
 
-# Kittens
 
-## Get All Kittens
+# Demos
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
+## Get All Demos
 
 ```python
-import kittn
+import lkire-api
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
+api = lkire-api.authorize('youraccesstoken')
+api.demos.get()
 ```
 
 ```javascript
-const kittn = require('kittn');
+const lkire-api = require('lkire-api');
 
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
+let api = lkire-api.authorize('youraccesstoken');
+let demos = lkire-api.demos.get();
 ```
 
 > The above command returns JSON structured like this:
@@ -101,139 +77,35 @@ let kittens = api.kittens.get();
 [
   {
     "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
+    "category": "stat",
+    "title": "Wavelet Time Series Analysis",
+    "frame": "http://api.lkire.com/wavelet",
+    "description": "Wavelets provide a complete orthonormal 
+    decomposition of a function with both..."
   },
   {
     "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+    "category": "ml",
+    "title": "Convolutional Neural Network Playground",
+    "frame": "http://api.lkire.com/cnn",
+    "description": "Convolutional neural networks embed layers 
+    for the discovery of convolutionally tiled feature sets..."
   }
 ]
 ```
 
-This endpoint retrieves all kittens.
+This endpoint retrieves all demos with your level of authentication.
 
 ### HTTP Request
 
-`GET http://example.com/api/kittens`
+`GET http://api.lkire.com/cnn`
 
 ### Query Parameters
 
 Parameter | Default | Description
 --------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+category | all | May be set to a category in the set {ml, phys, stat} to limit topic. 
 
 <aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+Remember — some demos may not be visible without authentication!
 </aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
-```
-
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
-
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -X DELETE
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "deleted" : ":("
-}
-```
-
-This endpoint deletes a specific kitten.
-
-### HTTP Request
-
-`DELETE http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
-
